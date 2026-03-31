@@ -147,9 +147,10 @@ iomap:
 | :-- | :--: | :--: |
 | DRAM | 0x0 ~ 0x00018000 | RTOS kernel\* |
 | SRAM | 0x04000000 - 0x04007fff | SRAM, used for stack |
-| DRAM | 0x10000000 - 0x12000000 | RTOS userspace\*; mirrored at 0x24000000, for some unknown reason the bootloader loads RTOS code to the mirror. it likely means the mirror is uncached, at least because zImage decompressor is insanely slow |
+| DRAM | 0x10000000 - 0x12000000 | RTOS userspace\* |
 | UART (not 8250-compatible by layout) | 0x1C00A620 | + 4 for THR, + 0x10 for LSR |
 | Timer | 0x1c00a200 - 0x1c00a250 | has 10 timers, timer_ctrl(n) = (n * 0x8), timer_val(n) = ((n * 0x8) + 0x4) |
+| DRAM mirror | 0x24000000 - 0x26000000 | not cached, code will run REALLY slow here |
 | BootROM | 0xffff0000 - 0xffffffff | CPU0 uses dummy bootrom for debugging, CPU1 switches to the bootloader and RTOS |
 
 ### PMIC
